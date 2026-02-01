@@ -10,18 +10,16 @@ fn test_full_dekf_pipeline() {
 
     // Set up constant velocity model
     let dt = 0.1;
-    let f = DMatrix::from_row_slice(4, 4, &[
-        1.0, 0.0, dt, 0.0,
-        0.0, 1.0, 0.0, dt,
-        0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 0.0, 1.0,
-    ]);
+    let f = DMatrix::from_row_slice(
+        4,
+        4,
+        &[
+            1.0, 0.0, dt, 0.0, 0.0, 1.0, 0.0, dt, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+        ],
+    );
 
     let b = DMatrix::zeros(4, 1);
-    let h = DMatrix::from_row_slice(2, 4, &[
-        1.0, 0.0, 0.0, 0.0,
-        0.0, 1.0, 0.0, 0.0,
-    ]);
+    let h = DMatrix::from_row_slice(2, 4, &[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0]);
     let r = DMatrix::identity(2, 2) * 0.1;
 
     dekf.set_matrices(f, b, h, r);
@@ -60,18 +58,16 @@ fn test_standard_ekf_tracking() {
 
     // Set up constant velocity model
     let dt = 0.1;
-    ekf.f_matrix = DMatrix::from_row_slice(4, 4, &[
-        1.0, 0.0, dt, 0.0,
-        0.0, 1.0, 0.0, dt,
-        0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 0.0, 1.0,
-    ]);
+    ekf.f_matrix = DMatrix::from_row_slice(
+        4,
+        4,
+        &[
+            1.0, 0.0, dt, 0.0, 0.0, 1.0, 0.0, dt, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+        ],
+    );
 
     ekf.b_matrix = DMatrix::zeros(4, 1);
-    ekf.h_matrix = DMatrix::from_row_slice(2, 4, &[
-        1.0, 0.0, 0.0, 0.0,
-        0.0, 1.0, 0.0, 0.0,
-    ]);
+    ekf.h_matrix = DMatrix::from_row_slice(2, 4, &[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0]);
 
     ekf.state = DVector::from_vec(vec![0.0, 0.0, 1.0, 1.0]);
 
