@@ -51,7 +51,7 @@ impl ExtendedKalmanFilter {
     pub fn predict(&mut self, control: &DVector<f64>) {
         // State prediction: x = Fx + Bu
         self.state = &self.f_matrix * &self.state + &self.b_matrix * control;
-        
+
         // Covariance prediction: P = FPF^T + Q
         self.covariance = &self.f_matrix * &self.covariance * self.f_matrix.transpose() + &self.q_matrix;
     }
@@ -66,21 +66,21 @@ impl ExtendedKalmanFilter {
     pub fn update(&mut self, measurement: &DVector<f64>) -> DVector<f64> {
         // Innovation residual: y = z - Hx
         let innovation = measurement - &self.h_matrix * &self.state;
-        
+
         // Innovation covariance: S = HPH^T + R
         let innovation_cov = &self.h_matrix * &self.covariance * self.h_matrix.transpose() + &self.r_matrix;
-        
+
         // Kalman gain: K = PH^T S^-1
         let kalman_gain = &self.covariance * self.h_matrix.transpose() * innovation_cov.clone().try_inverse().unwrap();
-        
+
         // State update: x = x + Ky
         self.state = &self.state + &kalman_gain * &innovation;
-        
+
         // Covariance update: P = (I - KH)P
         let state_dim = self.state.len();
         let identity = DMatrix::identity(state_dim, state_dim);
         self.covariance = (identity - &kalman_gain * &self.h_matrix) * &self.covariance;
-        
+
         innovation
     }
 
@@ -119,10 +119,10 @@ mod tests {
         ekf.state = DVector::from_vec(vec![1.0, 0.0]);
         ekf.f_matrix = DMatrix::from_row_slice(2, 2, &[1.0, 1.0, 0.0, 1.0]);
         ekf.b_matrix = DMatrix::from_vec(2, 1, vec![0.5, 1.0]);
-        
+
         let control = DVector::from_vec(vec![1.0]);
         ekf.predict(&control);
-        
+
         assert_relative_eq!(ekf.state[0], 1.5, epsilon = 1e-10);
         assert_relative_eq!(ekf.state[1], 1.0, epsilon = 1e-10);
     }
@@ -132,10 +132,10 @@ mod tests {
         let mut ekf = ExtendedKalmanFilter::new(2, 1, 1);
         ekf.state = DVector::from_vec(vec![1.0, 0.0]);
         ekf.h_matrix = DMatrix::from_row_slice(1, 2, &[1.0, 0.0]);
-        
+
         let measurement = DVector::from_vec(vec![1.5]);
         let innovation = ekf.update(&measurement);
-        
+
         assert_relative_eq!(innovation[0], 0.5, epsilon = 1e-10);
     }
 }

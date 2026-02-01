@@ -27,7 +27,7 @@ impl QNetwork {
     pub fn new() -> Self {
         let dev = Cpu::default();
         let model = dev.build_module::<QNetworkModel, f32>();
-        
+
         Self { model, dev }
     }
 
@@ -46,11 +46,11 @@ impl QNetwork {
             innovation[2] as f32,
             innovation[3] as f32,
         ];
-        
+
         let input_tensor = self.dev.tensor(input_f32);
         let output = self.model.forward(input_tensor);
         let output_array = output.array();
-        
+
         // Convert back to f64 and ensure strict positivity (epsilon for stability)
         [
             (output_array[0] as f64).max(1e-6),
@@ -92,7 +92,7 @@ mod tests {
         let qnet = QNetwork::new();
         let innovation = [0.1, -0.2, 0.3, -0.1];
         let q_diag = qnet.forward(&innovation);
-        
+
         // All outputs should be positive (strictly) due to epsilon floor
         for &val in &q_diag {
             assert!(val >= 1e-6, "Q diagonal element should be at least epsilon: {}", val);
