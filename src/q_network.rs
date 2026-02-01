@@ -4,7 +4,6 @@
 //! from innovation residuals.
 
 use dfdx::prelude::*;
-use dfdx::nn::Softplus;
 
 /// Type alias for the Q-Network architecture
 /// Input: Innovation residual vector
@@ -12,7 +11,7 @@ use dfdx::nn::Softplus;
 pub type QNetworkModel = (
     (Linear<4, 8>, ReLU),
     (Linear<8, 8>, ReLU),
-    (Linear<8, 4>, Softplus),
+    (Linear<8, 4>, ReLU),
 );
 
 /// Neural network for predicting process noise covariance

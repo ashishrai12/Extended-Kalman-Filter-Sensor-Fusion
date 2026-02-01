@@ -123,7 +123,7 @@ impl DifferentiableEKF {
         
         // Compute MSE loss between predicted state and ground truth
         let diff = state_tensor - gt_tensor;
-        let mse = (diff.clone() * diff).mean();
+        let mse = diff.square().mean();
         
         // Backward pass
         let loss_value = mse.array();
