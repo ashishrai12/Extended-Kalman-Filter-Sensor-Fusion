@@ -1,4 +1,4 @@
-//! # Rust Fusion - Differentiable Extended Kalman Filter (DEKF)
+//! # Extended Kalman Filter Sensor Fusion (DEKF)
 //!
 //! A minimal library combining classical Extended Kalman Filter with neural network-based
 //! adaptive process noise estimation.

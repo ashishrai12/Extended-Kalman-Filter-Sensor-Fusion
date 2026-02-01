@@ -1,4 +1,4 @@
-# Radar and LiDAR Fusion for Object Detection and Tracking
+# Extended Kalman Filter Sensor Fusion
 
 [![Rust CI](https://github.com/ashishrai12/Radar-and-LiDAR-Fusion-for-Object-Detection-and-Tracking/actions/workflows/rust-ci.yml/badge.svg)](https://github.com/ashishrai12/Radar-and-LiDAR-Fusion-for-Object-Detection-and-Tracking/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -64,7 +64,7 @@ This library implements a **Differentiable Extended Kalman Filter (DEKF)** that:
 ### Quick Start
 
 ```rust
-use rust_fusion::DifferentiableEKF;
+use ekf_sensor_fusion::DifferentiableEKF;
 use nalgebra::{DMatrix, DVector};
 
 // Create DEKF for 4D state (x, y, vx, vy), 2D measurement, 1D control

@@ -1,4 +1,4 @@
-# Contributing to Radar and LiDAR Fusion
+# Contributing to Extended Kalman Filter Sensor Fusion
 
 Thank you for your interest in contributing to this project!
 

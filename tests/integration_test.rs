@@ -1,6 +1,6 @@
 //! Integration tests for the DEKF library
 
-use rust_fusion::{DifferentiableEKF, ExtendedKalmanFilter};
+use ekf_sensor_fusion::{DifferentiableEKF, ExtendedKalmanFilter};
 use nalgebra::{DMatrix, DVector};
 
 #[test]

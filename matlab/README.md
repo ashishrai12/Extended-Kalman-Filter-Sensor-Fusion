@@ -1,6 +1,6 @@
 # MATLAB Sensor Fusion Simulation
 
-This directory contains the MATLAB implementation of the Radar and LiDAR fusion system.
+This directory contains the MATLAB implementation for the Extended Kalman Filter Sensor Fusion project.
 
 ## Contents
 

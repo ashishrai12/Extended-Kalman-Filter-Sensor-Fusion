@@ -3,7 +3,7 @@
 //! This example demonstrates how to use the DEKF for tracking an object
 //! using noisy radar measurements and high-resolution LiDAR ground truth.
 
-use rust_fusion::DifferentiableEKF;
+use ekf_sensor_fusion::DifferentiableEKF;
 use nalgebra::{DMatrix, DVector};
 use rand::Rng;
 
