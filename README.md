@@ -15,16 +15,26 @@ This library implements a **Differentiable Extended Kalman Filter (DEKF)** that:
 
 ## Project Structure
 
-```text
-.
-├── src/                # Core Rust DEKF implementation
-├── examples/           # Rust usage examples
-├── tests/              # Rust integration tests
-├── matlab/             # MATLAB Simulation & Visualization
-├── docs/               # Technical documentation
-├── data/               # Sample sensor datasets
-├── scripts/            # Utility scripts
-└── Cargo.toml          # Rust package configuration
+```mermaid
+graph TD
+    Root[Extended Kalman Filter Sensor Fusion] --> Src[src/]
+    Root --> Examples[examples/]
+    Root --> Tests[tests/]
+    Root --> Matlab[matlab/]
+    Root --> Docs[docs/]
+    Root --> Data[data/]
+    Root --> Scripts[scripts/]
+    Root --> Github[.github/]
+
+    Src --> DEKF[dekf.rs]
+    Src --> EKF[ekf.rs]
+    Src --> QNet[q_network.rs]
+    Src --> Lib[lib.rs]
+
+    Examples --> FusionEx[radar_lidar_fusion.rs]
+    Tests --> Integration[integration_test.rs]
+    Matlab --> MRS[RadarLidarFusion.m]
+    Github --> CI[workflows/rust-ci.yml]
 ```
 
 ## Rust Library
