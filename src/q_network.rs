@@ -51,12 +51,12 @@ impl QNetwork {
         let output = self.model.forward(input_tensor);
         let output_array = output.array();
         
-        // Convert back to f64
+        // Convert back to f64 and ensure strict positivity (epsilon for stability)
         [
-            output_array[0] as f64,
-            output_array[1] as f64,
-            output_array[2] as f64,
-            output_array[3] as f64,
+            (output_array[0] as f64).max(1e-6),
+            (output_array[1] as f64).max(1e-6),
+            (output_array[2] as f64).max(1e-6),
+            (output_array[3] as f64).max(1e-6),
         ]
     }
 
@@ -93,9 +93,9 @@ mod tests {
         let innovation = [0.1, -0.2, 0.3, -0.1];
         let q_diag = qnet.forward(&innovation);
         
-        // All outputs should be positive due to Softplus activation
+        // All outputs should be positive (strictly) due to epsilon floor
         for &val in &q_diag {
-            assert!(val > 0.0, "Q diagonal element should be positive: {}", val);
+            assert!(val >= 1e-6, "Q diagonal element should be at least epsilon: {}", val);
         }
     }
 }
