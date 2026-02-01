@@ -27,7 +27,7 @@ This library implements a **Differentiable Extended Kalman Filter (DEKF)** that:
 └── Cargo.toml          # Rust package configuration
 ```
 
-## Rust Library (Main Focus)
+## Rust Library
 
 ### Architecture
 
