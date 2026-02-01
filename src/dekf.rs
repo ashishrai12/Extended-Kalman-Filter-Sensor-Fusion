@@ -5,7 +5,7 @@
 use nalgebra::{DMatrix, DVector};
 use dfdx::prelude::*;
 use dfdx::optim::Adam;
-use dfdx::nn::WeightDecay;
+use crate::ekf::ExtendedKalmanFilter;
 use crate::ekf::ExtendedKalmanFilter;
 use crate::q_network::{QNetwork, QNetworkModel};
 
@@ -16,7 +16,7 @@ pub struct DifferentiableEKF {
     /// Neural network for Q matrix prediction
     pub q_network: QNetwork,
     /// Optimizer for training
-    optimizer: Adam<QNetworkModel, f32, Cpu>,
+    optimizer: Adam<<QNetworkModel as BuildOnDevice<Cpu, f32>>::Built, f32, Cpu>,
 }
 
 impl DifferentiableEKF {
