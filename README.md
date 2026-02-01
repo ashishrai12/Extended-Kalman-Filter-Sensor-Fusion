@@ -88,6 +88,20 @@ To run the provided radar-lidar fusion example:
 cargo run --example radar_lidar_fusion
 ```
 
+### Docker Integration
+
+For consistent build and execution environments, you can use the provided Dockerfile.
+
+1. **Build the Image**:
+   ```bash
+   docker build -t ekf-sensor-fusion .
+   ```
+
+2. **Run the Fusion Example**:
+   ```bash
+   docker run ekf-sensor-fusion
+   ```
+
 ## MATLAB Simulation
 
 Located in `/matlab`, this script provides a high-fidelity visualization of the fusion process.
